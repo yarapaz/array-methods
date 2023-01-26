@@ -1,4 +1,4 @@
-# 🖼️ JavaScript - Array Methods
+# 📝 JavaScript - Array Methods
 
 Welcome to the Array Methods project! This project aim was simply to practice array methods to fully understand they usage and be able to master them as much as possible.
 
