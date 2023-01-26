@@ -63,29 +63,54 @@ const people = [
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's
 
-const inventors1500Array = inventors.filter(
+//Arrow function
+const fifteen = inventors.filter(
   (eachinventor) => eachinventor.year >= 1500 && eachinventor.year < 1600
 );
-console.log(inventors1500Array);
+//Classic Function
+// const fifteen = inventors.filter(
+//   function (eachinventor) {
+//     if (eachinventor.year >= 1500 && eachinventor.year < 1600) {
+//       return true
+//     }
+//   }
+// );
+console.log(fifteen);
 
 // Array.prototype.map()
 // 2. Give us an array of the inventors first and last names
 
-const inventorsFirstAndLastNamesArray = inventors.map(
+const fullNames = inventors.map(
   (eachInventor) => `${eachInventor.first}, ${eachInventor.last}`
 );
-console.log(inventorsFirstAndLastNamesArray);
+console.log(fullNames);
 
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
 
-const inventorsBirthdatesOldestToYoungest = inventors.sort(
+const ordered = inventors.sort(
   (inventorOne, inventorTwo) => inventorTwo.year - inventorOne.year
 );
-console.log(inventorsBirthdatesOldestToYoungest);
+
+// const ordered = inventors.sort((a, b) => (a.year > b.year ? 1 : -1));
+
+// const ordered = inventors.sort(function(a, b) {
+//   if (a.year > b.year) {
+//     return 1;
+//   } else {
+//     return -1;
+//   }
+// });
+console.log(ordered);
 
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live all together?
+
+//Final 0 represents the value of the counter "total"
+const totalYears = inventors.reduce((total, inventor) => {
+  return total + (inventor.passed - inventor.year);
+}, 0);
+console.log(totalYears);
 
 // 5. Sort the inventors by years lived
 const inventorsYearsLived = inventors.map((eachInventor) => {
@@ -98,23 +123,68 @@ const inventorsYearsLived = inventors.map((eachInventor) => {
 console.log(inventorsYearsLived);
 
 const inventorsSortedByYearsLivedOldestToYoungest = inventorsYearsLived.sort(
-  (InventorOne, InventorTwo) => InventorTwo.yearsLived - InventorOne.yearsLived
+  (inventorOne, inventorTwo) => inventorTwo.yearsLived - inventorOne.yearsLived
 );
 console.log(inventorsSortedByYearsLivedOldestToYoungest);
 
 const inventorsSortedByYearsLivedYoungestToOldest = inventorsYearsLived.sort(
-  (InventorOne, InventorTwo) => InventorOne.yearsLived - InventorTwo.yearsLived
+  (inventorOne, inventorTwo) => inventorOne.yearsLived - inventorTwo.yearsLived
 );
 console.log(inventorsSortedByYearsLivedYoungestToOldest);
+
+// const oldest = inventors.sort(function (a, b) {
+//   const lastInventor = a.passed - a.year;
+//   const nextInventor = b.passed - b.year;
+//   if (nextInventor > lastInventor) {
+//     return -1;
+//   } else {
+//     return 1;
+//   }
+//OR
+// return lastInventor > nextInventor ? -1 : 1;
+// });
+
+// const youngest = inventors.sort(function (a, b) {
+//   const lastInventor = a.passed - a.year;
+//   const nextInventor = b.passed - b.year;
+//   if (lastInventor > nextInventor) {
+//     return -1;
+//   } else {
+//     return 1;
+//   }
+//OR
+// return lastInventor > nextInventor ? -1 : 1;
+// });
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+// const category = document.querySelector('.mw-category');
+// // const links = category.querySelectorAll('a'); //Node List
+// // const links = Array.from(category.querySelectorAll('a')); //Turned into Array
+// const links = [...category.querySelectorAll('a')]; //Turned into Array
+
+// // const de = links.map((eachLink) => eachLink.textContent);
+// // const boulevardsWithDe = de.filter((eachDe) => eachDe.includes('de'));
+
+// const de = links
+//   .map((eachLink) => eachLink.textContent)
+//   .filter((eachLink) => eachLink.includes('de'));
+
 // 7. sort Exercise
 // Sort the people alphabetically by last name
+const peopleSortedAlphabeticallyByLastName = people.sort();
+console.log(peopleSortedAlphabeticallyByLastName);
+
+// const alpha = people.sort(function (a, b) {
+//   const [aLast, aFirst] = a.split(); //When we split it turns into an array of two elements separating name and surname. Deconstructing it we are giving both elements a name, what's better, rather than leaving there without any name
+//   const [bLast, bFirst] = b.split();
+//   return aLast > bLast ? -1 : 1; //Alpha order last to first
+//   return aLast > bLast ? 1 : -1; //Alpha order first to last (this is what we want)
+// });
 
 // 8. Reduce Exercise
-// Sum up the instances of each of these
+// Sum up the instances of each of these. I only want to have one of each, not repeated
 const data = [
   'car',
   'car',
@@ -131,3 +201,14 @@ const data = [
   'car',
   'truck',
 ];
+
+const transports = data.reduce(function (obj, item) {
+  if (!obj[item]) {
+    obj[item] = 0; //If the property doesn't exist we have to create it to a 0 value
+  }
+  obj[item]++; //then we add 1, cos we want to add one item to the list, we can't start on 0 itself
+
+  return obj; //I return de counter with its new properties that each time will we completely different
+}, {});
+
+console.log(transports);
